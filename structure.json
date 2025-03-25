@@ -1,0 +1,466 @@
+{
+    "clientName": "str",
+    "mapName": "str",
+    "tickRate": "int",
+    "playbackTicks": "int",
+    "playbackFramesCount": "int",
+    "parsedToFrameIdx": "int",
+    "parserParameters": {
+        "parseRate": "int",
+        "parseFrames": "bool",
+        "parseKillFrames": "bool",
+        "tradeTime": "int",
+        "roundBuyStyle": "str",
+        "damagesRolledUp": "bool"
+    },
+    "serverVars": {
+        "cashBombDefused": "int",
+        "cashBombPlanted": "int",
+        "cashTeamTWinBomb": "int",
+        "cashWinDefuse": "int",
+        "cashWinTimeRunOut": "int",
+        "cashWinElimination": "int",
+        "cashPlayerKilledDefault": "int",
+        "cashTeamLoserBonus": "int",
+        "cashTeamLoserBonusConsecutive": "int",
+        "roundTime": "int",
+        "roundTimeDefuse": "int",
+        "roundRestartDelay": "int",
+        "freezeTime": "int",
+        "buyTime": "int",
+        "bombTimer": "int",
+        "maxRounds": "int",
+        "timeoutsAllowed": "int",
+        "coachingAllowed": "int"
+    },
+    "matchPhases": {
+        "announcementLastRoundHalf": [
+            "int"
+        ],
+        "announcementFinalRound": [],
+        "announcementMatchStarted": [],
+        "roundStarted": [
+            "int"
+        ],
+        "roundEnded": [
+            "int"
+        ],
+        "roundFreezetimeEnded": [
+            "int"
+        ],
+        "roundEndedOfficial": [
+            "int"
+        ],
+        "gameHalfEnded": [
+            "int"
+        ],
+        "matchStart": [
+            "int"
+        ],
+        "matchStartedChanged": [
+            "int"
+        ],
+        "warmupChanged": [
+            "int"
+        ],
+        "teamSwitch": [
+            "int"
+        ]
+    },
+    "matchmakingRanks": [],
+    "playerConnections": [
+        {
+            "tick": "int",
+            "action": "str",
+            "steamID": "int"
+        }
+    ],
+    "gameRounds": [
+        {
+            "roundNum": "int",
+            "isWarmup": "bool",
+            "startTick": "int",
+            "freezeTimeEndTick": "int",
+            "endTick": "int",
+            "endOfficialTick": "int",
+            "bombPlantTick": "int",
+            "tScore": "int",
+            "ctScore": "int",
+            "endTScore": "int",
+            "endCTScore": "int",
+            "ctTeam": "str",
+            "tTeam": "str",
+            "winningSide": "str",
+            "winningTeam": "str",
+            "losingTeam": "str",
+            "roundEndReason": "str",
+            "ctFreezeTimeEndEqVal": "int",
+            "ctRoundStartEqVal": "int",
+            "ctRoundSpendMoney": "int",
+            "ctBuyType": "str",
+            "tFreezeTimeEndEqVal": "int",
+            "tRoundStartEqVal": "int",
+            "tRoundSpendMoney": "int",
+            "tBuyType": "str",
+            "ctSide": {
+                "teamName": "str",
+                "players": [
+                    {
+                        "playerName": "str",
+                        "steamID": "int"
+                    }
+                ]
+            },
+            "tSide": {
+                "teamName": "str",
+                "players": [
+                    {
+                        "playerName": "str",
+                        "steamID": "int"
+                    }
+                ]
+            },
+            "kills": [
+                {
+                    "tick": "int",
+                    "seconds": "float",
+                    "clockTime": "str",
+                    "attackerSteamID": "int",
+                    "attackerName": "str",
+                    "attackerTeam": "str",
+                    "attackerSide": "str",
+                    "attackerX": "float",
+                    "attackerY": "float",
+                    "attackerZ": "float",
+                    "attackerViewX": "float",
+                    "attackerViewY": "float",
+                    "victimSteamID": "int",
+                    "victimName": "str",
+                    "victimTeam": "str",
+                    "victimSide": "str",
+                    "victimX": "float",
+                    "victimY": "float",
+                    "victimZ": "float",
+                    "victimViewX": "float",
+                    "victimViewY": "float",
+                    "assisterSteamID": "NoneType",
+                    "assisterName": "NoneType",
+                    "assisterTeam": "NoneType",
+                    "assisterSide": "NoneType",
+                    "isSuicide": "bool",
+                    "isTeamkill": "bool",
+                    "isWallbang": "bool",
+                    "penetratedObjects": "int",
+                    "isFirstKill": "bool",
+                    "isHeadshot": "bool",
+                    "victimBlinded": "bool",
+                    "attackerBlinded": "bool",
+                    "flashThrowerSteamID": "NoneType",
+                    "flashThrowerName": "NoneType",
+                    "flashThrowerTeam": "NoneType",
+                    "flashThrowerSide": "NoneType",
+                    "noScope": "bool",
+                    "thruSmoke": "bool",
+                    "distance": "float",
+                    "isTrade": "bool",
+                    "playerTradedName": "NoneType",
+                    "playerTradedTeam": "NoneType",
+                    "playerTradedSteamID": "NoneType",
+                    "weapon": "str",
+                    "weaponClass": "str"
+                }
+            ],
+            "damages": [
+                {
+                    "tick": "int",
+                    "seconds": "float",
+                    "clockTime": "str",
+                    "attackerSteamID": "int",
+                    "attackerName": "str",
+                    "attackerTeam": "str",
+                    "attackerSide": "str",
+                    "attackerX": "float",
+                    "attackerY": "float",
+                    "attackerZ": "float",
+                    "attackerViewX": "float",
+                    "attackerViewY": "float",
+                    "attackerStrafe": "bool",
+                    "victimSteamID": "int",
+                    "victimName": "str",
+                    "victimTeam": "str",
+                    "victimSide": "str",
+                    "victimX": "float",
+                    "victimY": "float",
+                    "victimZ": "float",
+                    "victimViewX": "float",
+                    "victimViewY": "float",
+                    "weapon": "str",
+                    "weaponClass": "str",
+                    "hpDamage": "int",
+                    "hpDamageTaken": "int",
+                    "armorDamage": "int",
+                    "armorDamageTaken": "int",
+                    "hitGroup": "str",
+                    "isFriendlyFire": "bool",
+                    "distance": "float",
+                    "zoomLevel": "int"
+                }
+            ],
+            "grenades": [
+                {
+                    "throwTick": "int",
+                    "destroyTick": "int",
+                    "throwSeconds": "float",
+                    "throwClockTime": "str",
+                    "destroySeconds": "float",
+                    "destroyClockTime": "str",
+                    "throwerSteamID": "int",
+                    "throwerName": "str",
+                    "throwerTeam": "str",
+                    "throwerSide": "str",
+                    "throwerX": "float",
+                    "throwerY": "float",
+                    "throwerZ": "float",
+                    "grenadeType": "str",
+                    "grenadeX": "float",
+                    "grenadeY": "float",
+                    "grenadeZ": "float",
+                    "entityId": "int"
+                }
+            ],
+            "bombEvents": [
+                {
+                    "tick": "int",
+                    "seconds": "float",
+                    "clockTime": "str",
+                    "playerSteamID": "int",
+                    "playerName": "str",
+                    "playerTeam": "str",
+                    "playerX": "float",
+                    "playerY": "float",
+                    "playerZ": "float",
+                    "bombAction": "str",
+                    "bombSite": "str"
+                }
+            ],
+            "weaponFires": [
+                {
+                    "tick": "int",
+                    "seconds": "float",
+                    "clockTime": "str",
+                    "playerSteamID": "int",
+                    "playerName": "str",
+                    "playerTeam": "str",
+                    "playerSide": "str",
+                    "playerX": "float",
+                    "playerY": "float",
+                    "playerZ": "float",
+                    "playerViewX": "float",
+                    "playerViewY": "float",
+                    "playerStrafe": "bool",
+                    "weapon": "str",
+                    "weaponClass": "str",
+                    "ammoInMagazine": "int",
+                    "ammoInReserve": "int",
+                    "zoomLevel": "int"
+                }
+            ],
+            "flashes": [
+                {
+                    "tick": "int",
+                    "seconds": "float",
+                    "clockTime": "str",
+                    "attackerSteamID": "int",
+                    "attackerName": "str",
+                    "attackerTeam": "str",
+                    "attackerSide": "str",
+                    "attackerX": "float",
+                    "attackerY": "float",
+                    "attackerZ": "float",
+                    "attackerViewX": "float",
+                    "attackerViewY": "float",
+                    "playerSteamID": "int",
+                    "playerName": "str",
+                    "playerTeam": "str",
+                    "playerSide": "str",
+                    "playerX": "float",
+                    "playerY": "float",
+                    "playerZ": "float",
+                    "playerViewX": "float",
+                    "playerViewY": "float",
+                    "flashDuration": "float"
+                }
+            ],
+            "frames": [
+                {
+                    "isKillFrame": "bool",
+                    "tick": "int",
+                    "seconds": "float",
+                    "clockTime": "str",
+                    "t": {
+                        "side": "str",
+                        "teamName": "str",
+                        "teamEqVal": "int",
+                        "alivePlayers": "int",
+                        "totalUtility": "int",
+                        "players": [
+                            {
+                                "steamID": "int",
+                                "name": "str",
+                                "team": "str",
+                                "side": "str",
+                                "x": "float",
+                                "y": "float",
+                                "z": "float",
+                                "velocityX": "float",
+                                "velocityY": "float",
+                                "velocityZ": "int",
+                                "viewX": "float",
+                                "viewY": "float",
+                                "hp": "int",
+                                "armor": "int",
+                                "activeWeapon": "str",
+                                "totalUtility": "int",
+                                "isAlive": "bool",
+                                "isBlinded": "bool",
+                                "isAirborne": "bool",
+                                "isDucking": "bool",
+                                "isDuckingInProgress": "bool",
+                                "isUnDuckingInProgress": "bool",
+                                "isDefusing": "bool",
+                                "isPlanting": "bool",
+                                "isReloading": "bool",
+                                "isInBombZone": "bool",
+                                "isInBuyZone": "bool",
+                                "isStanding": "bool",
+                                "isScoped": "bool",
+                                "isWalking": "bool",
+                                "isUnknown": "bool",
+                                "inventory": [
+                                    {
+                                        "weaponName": "str",
+                                        "weaponClass": "str",
+                                        "ammoInMagazine": "int",
+                                        "ammoInReserve": "int"
+                                    }
+                                ],
+                                "spotters": [],
+                                "equipmentValue": "int",
+                                "equipmentValueFreezetimeEnd": "int",
+                                "equipmentValueRoundStart": "int",
+                                "cash": "int",
+                                "cashSpendThisRound": "int",
+                                "cashSpendTotal": "int",
+                                "hasHelmet": "bool",
+                                "hasDefuse": "bool",
+                                "hasBomb": "bool",
+                                "ping": "int",
+                                "zoomLevel": "int"
+                            }
+                        ]
+                    },
+                    "ct": {
+                        "side": "str",
+                        "teamName": "str",
+                        "teamEqVal": "int",
+                        "alivePlayers": "int",
+                        "totalUtility": "int",
+                        "players": [
+                            {
+                                "steamID": "int",
+                                "name": "str",
+                                "team": "str",
+                                "side": "str",
+                                "x": "float",
+                                "y": "float",
+                                "z": "float",
+                                "velocityX": "int",
+                                "velocityY": "int",
+                                "velocityZ": "int",
+                                "viewX": "float",
+                                "viewY": "float",
+                                "hp": "int",
+                                "armor": "int",
+                                "activeWeapon": "str",
+                                "totalUtility": "int",
+                                "isAlive": "bool",
+                                "isBlinded": "bool",
+                                "isAirborne": "bool",
+                                "isDucking": "bool",
+                                "isDuckingInProgress": "bool",
+                                "isUnDuckingInProgress": "bool",
+                                "isDefusing": "bool",
+                                "isPlanting": "bool",
+                                "isReloading": "bool",
+                                "isInBombZone": "bool",
+                                "isInBuyZone": "bool",
+                                "isStanding": "bool",
+                                "isScoped": "bool",
+                                "isWalking": "bool",
+                                "isUnknown": "bool",
+                                "inventory": [
+                                    {
+                                        "weaponName": "str",
+                                        "weaponClass": "str",
+                                        "ammoInMagazine": "int",
+                                        "ammoInReserve": "int"
+                                    }
+                                ],
+                                "spotters": [],
+                                "equipmentValue": "int",
+                                "equipmentValueFreezetimeEnd": "int",
+                                "equipmentValueRoundStart": "int",
+                                "cash": "int",
+                                "cashSpendThisRound": "int",
+                                "cashSpendTotal": "int",
+                                "hasHelmet": "bool",
+                                "hasDefuse": "bool",
+                                "hasBomb": "bool",
+                                "ping": "int",
+                                "zoomLevel": "int"
+                            }
+                        ]
+                    },
+                    "bombPlanted": "bool",
+                    "bombsite": "str",
+                    "bomb": {
+                        "x": "float",
+                        "y": "float",
+                        "z": "float"
+                    },
+                    "projectiles": [
+                        {
+                            "projectileType": "str",
+                            "x": "float",
+                            "y": "float",
+                            "z": "float"
+                        }
+                    ],
+                    "smokes": [
+                        {
+                            "grenadeEntityID": "int",
+                            "startTick": "int",
+                            "x": "float",
+                            "y": "float",
+                            "z": "float"
+                        }
+                    ],
+                    "fires": [
+                        {
+                            "uniqueID": "int",
+                            "x": "float",
+                            "y": "float",
+                            "z": "int"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "matchId": "str",
+    "demoId": "str",
+    "competitionName": "str",
+    "hltvUrl": "str",
+    "matchDate": "int",
+    "matchName": "str"
+}
