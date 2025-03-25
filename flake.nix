@@ -15,6 +15,8 @@
               python311Packages.numpy
               python311Packages.matplotlib
               python311Packages.tqdm
+              python311Packages.pyarrow
+              python311Packages.fastparquet
               gcc
             ];
           };
