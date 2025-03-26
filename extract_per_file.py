@@ -8,7 +8,7 @@ from utils.general import camel_to_snake
 dir_path = "./decompressed/"
 destination_path = "./parsed"
 
-for filename in os.listdir(dir_path)[:100]:
+for file_num, filename in enumerate(os.listdir(dir_path)[:200]):
     filepath = os.path.join(dir_path, filename)
     if not os.path.isfile(filepath):
         continue
@@ -135,8 +135,7 @@ for filename in os.listdir(dir_path)[:100]:
                     del flash_data  # delete flash_data
 
             if "frames" in round and round["frames"]:
-                for frame in round["frames"]:
-                    frame_id = len(parsed["frames"])
+                for frame_id, frame in enumerate(round["frames"]):
                     frame_data = dict(get_top_level(frame))
                     frame_data["round_num"] = round_num
                     parsed["frames"].append(frame_data)
@@ -144,6 +143,7 @@ for filename in os.listdir(dir_path)[:100]:
 
                     if "bomb" in frame and frame["bomb"]:
                         bomb_location_data = dict(get_top_level(frame["bomb"]))
+                        bomb_location_data["match_id"] = match_id
                         bomb_location_data["round_num"] = round_num
                         bomb_location_data["frame_id"] = frame_id
                         parsed["bomb_location"].append(bomb_location_data)
@@ -152,6 +152,7 @@ for filename in os.listdir(dir_path)[:100]:
                     if "projectiles" in frame and frame["projectiles"]:
                         for projectile in frame["projectiles"]:
                             projectile_data = dict(get_top_level(projectile))
+                            projectile_data["match_id"] = match_id
                             projectile_data["round_num"] = round_num
                             projectile_data["frame_id"] = frame_id
                             parsed["projectiles"].append(projectile_data)
@@ -160,6 +161,7 @@ for filename in os.listdir(dir_path)[:100]:
                     if "smokes" in frame and frame["smokes"]:
                         for smoke in frame["smokes"]:
                             smoke_data = dict(get_top_level(smoke))
+                            smoke_data["match_id"] = match_id
                             smoke_data["round_num"] = round_num
                             smoke_data["frame_id"] = frame_id
                             parsed["smokes"].append(smoke_data)
@@ -168,6 +170,7 @@ for filename in os.listdir(dir_path)[:100]:
                     if "fires" in frame and frame["fires"]:
                         for fire in frame["fires"]:
                             fire_data = dict(get_top_level(fire))
+                            fire_data["match_id"] = match_id
                             fire_data["round_num"] = round_num
                             fire_data["frame_id"] = frame_id
                             parsed["fires"].append(fire_data)
@@ -195,6 +198,7 @@ for filename in os.listdir(dir_path)[:100]:
                                 parsed["players"].append(player_data)
 
                             player_id = parsed["players"].index(player_data)
+                            player_frame_data["match_id"] = match_id
                             player_frame_data["round_num"] = round_num
                             player_frame_data["frame_id"] = frame_id
                             player_frame_data["player_id"] = player_id
@@ -204,6 +208,7 @@ for filename in os.listdir(dir_path)[:100]:
                             if "inventory" in player and player["inventory"]:
                                 for inventory in player["inventory"]:
                                     inventory_data = dict(get_top_level(inventory))
+                                    inventory_data["match_id"] = match_id
                                     inventory_data["round_num"] = round_num
                                     inventory_data["frame_id"] = frame_id
                                     inventory_data["player_id"] = player_id
@@ -233,6 +238,7 @@ for filename in os.listdir(dir_path)[:100]:
                                 parsed["players"].append(player_data)
 
                             player_id = parsed["players"].index(player_data)
+                            player_frame_data["match_id"] = match_id
                             player_frame_data["round_num"] = round_num
                             player_frame_data["frame_id"] = frame_id
                             player_frame_data["player_id"] = player_id
@@ -242,6 +248,7 @@ for filename in os.listdir(dir_path)[:100]:
                             if "inventory" in player and player["inventory"]:
                                 for inventory in player["inventory"]:
                                     inventory_data = dict(get_top_level(inventory))
+                                    inventory_data["match_id"] = match_id
                                     inventory_data["round_num"] = round_num
                                     inventory_data["frame_id"] = frame_id
                                     inventory_data["player_id"] = player_id
@@ -249,15 +256,20 @@ for filename in os.listdir(dir_path)[:100]:
                                     del inventory_data
                         del ct_team_frame_data
 
+    os.makedirs(f"{destination_path}/{match_id}", exist_ok=True)
     for key, value in parsed.items():
         if value:  # check if list is not empty.
+            dest_file_name = (
+                f"{destination_path}/{match_id}/{key}_{filename.removesuffix('.json')}"
+            )
             df = pd.DataFrame(value)
             df.columns = [camel_to_snake(col) for col in df.columns]
-            df.to_parquet(
-                f"{destination_path}/{key}_{filename}.parquet"
-            )  # add filename to parquet.
+            df.to_parquet(dest_file_name)  # add filename to parquet.
+            print(f"saved {dest_file_name}")
             del df
             gc.collect()
+
+    print(f"saved {destination_path}, {file_num=}")
     del parsed
     del data
     gc.collect()
