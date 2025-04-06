@@ -3,6 +3,10 @@
 declare -a directories=("./data/lan" "./data/online")
 declare -A decompressed_counts
 target_files=50
+output_dir="./decompressed"
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
 
 # Initialize decompressed counts for each directory
 for dir in "${directories[@]}"; do
@@ -20,8 +24,7 @@ for dir in "${directories[@]}"; do
     if [[ ${decompressed_counts["$dir"]} -lt $((target_files / ${#directories[@]})) ]]; then
       echo "Processing file: $file"
       filename=$(basename "$file" .xz)
-      output_file="./decompressed/$filename"
-      mkdir -p "./decompressed" # Ensure the output directory exists
+      output_file="$output_dir/$filename"
       xz -dkc "$file" > "$output_file"
       if [[ $? -eq 0 ]]; then
         echo "Decompressed: $file to $output_file"
@@ -43,8 +46,7 @@ if [[ $remaining_files -gt 0 ]]; then
     if [[ ${decompressed_counts["$dir"]} -lt "$target_files" ]]; then
       echo "Processing file: $file"
       filename=$(basename "$file" .xz)
-      output_file="./decompressed/$filename"
-      mkdir -p "./decompressed" # Ensure the output directory exists
+      output_file="$output_dir/$filename"
       xz -dkc "$file" > "$output_file"
       if [[ $? -eq 0 ]]; then
         echo "Decompressed: $file to $output_file"
