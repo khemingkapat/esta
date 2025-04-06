@@ -129,5 +129,5 @@ def compare_dict(st, fst):
 
 def get_top_level(data):
     for key, value in data.items():
-        if not isinstance(value, (dict, list)):
+        if not isinstance(value, (dict, list)) and value is not None:
             yield key, value
