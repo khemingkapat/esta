@@ -19,6 +19,13 @@
               python311Packages.fastparquet
               gcc
             ];
+
+            # Optional: Set an environment variable to point to the data directory
+            shellHook = ''
+              echo "Development shell for ESTA data parsing"
+              export DATA_DIR="$PWD/data"
+              export DECOMPRESSED_DIR="$PWD/decompressed"
+            '';
           };
         }
       );
