@@ -12,15 +12,14 @@ import pandas as pd
 #     dir_path="./decompressed", destination_path="./parsed", total_matches=50
 # )
 
+# player_rounds_df = pd.read_parquet("./parsed/player_rounds.parquet")
+# print(player_rounds_df.drop_duplicates().shape)
+# rounds_df = pd.read_parquet("./parsed/rounds.parquet")
+# print(rounds_df.drop_duplicates().shape)
 
-file = lambda filename: f"./parsed/{filename}.parquet"
-player_frames_df = pd.read_parquet(file("player_frames"))
-players_df = pd.read_parquet(file("players"))
-invetories_df = pd.read_parquet(file("inventory"))
 
-players_steam_id = set(players_df.steam_id.unique())
-player_frames_steam_id = set(player_frames_df.steam_id.unique())
+frames_df = pd.read_parquet("./parsed/frames.parquet")
+print(frames_df)
 
-print(players_steam_id == player_frames_steam_id)
-
-print(invetories_df.info())
+player_frames_df = pd.read_parquet("./parsed/player_frames.parquet")
+print(player_frames_df)
