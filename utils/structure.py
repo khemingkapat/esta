@@ -36,7 +36,7 @@ def flatten_dict(data, parent_key="", sep="_"):
 def json_to_dict(filename: str):
     with open(filename, "r") as file:
         data = json.load(file)
-    return data
+        return data
 
 
 def get_json_structure(filename: str):

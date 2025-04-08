@@ -41,7 +41,7 @@ def parse_by_join_file(
             "flashes": [],
             "frames": [],
             "players": [],
-            "player_rounds": [],
+            # "player_rounds": [],
             "team_frames": [],
             "player_frames": [],
             "inventory": [],
@@ -60,6 +60,7 @@ def parse_by_join_file(
             for round in data["gameRounds"]:
                 round_data = dict(get_top_level(round))
                 round_num = round_data["roundNum"]
+                # print(round_num)
                 round_data["match_id"] = match_id
                 parsed["rounds"].append(round_data)
                 del round_data  # delete round_data
@@ -71,15 +72,17 @@ def parse_by_join_file(
                     and round["ctSide"]["players"]
                 ):
                     for player in round["ctSide"]["players"]:
-                        player_data = dict(get_top_level(player))
-                        player_data["team_name"] = round["ctSide"]["teamName"]
-                        if player_data not in parsed["players"]:
-                            parsed["players"].append(player_data)
-                        player_data["round_num"] = round_num
-                        player_data["side"] = "ct"
-                        player_data["match_id"] = match_id
-                        parsed["player_rounds"].append(player_data)
-                        del player_data  # delete player_data
+                        ct_player_data = dict(get_top_level(player))
+                        ct_player_data["team_name"] = round["ctSide"]["teamName"]
+                        if ct_player_data not in parsed["players"]:
+                            parsed["players"].append(ct_player_data)
+
+                        # ct_player_round_data = ct_player_data.copy()
+                        # ct_player_round_data["round_num"] = round_num
+                        # ct_player_round_data["side"] = "ct"
+                        # ct_player_round_data["match_id"] = match_id
+                        # parsed["player_rounds"].append(ct_player_round_data)
+                        del ct_player_data  # delete player_data
 
                 if (
                     "tSide" in round
@@ -88,15 +91,17 @@ def parse_by_join_file(
                     and round["tSide"]["players"]
                 ):
                     for player in round["tSide"]["players"]:
-                        player_data = dict(get_top_level(player))
-                        player_data["team_name"] = round["tSide"]["teamName"]
-                        if player_data not in parsed["players"]:
-                            parsed["players"].append(player_data)
-                        player_data["round_num"] = round_num
-                        player_data["side"] = "t"
-                        player_data["match_id"] = match_id
-                        parsed["player_rounds"].append(player_data)
-                        del player_data  # delete player_data
+                        t_player_data = dict(get_top_level(player))
+                        t_player_data["team_name"] = round["tSide"]["teamName"]
+                        if t_player_data not in parsed["players"]:
+                            parsed["players"].append(t_player_data)
+
+                        # t_player_round_data = t_player_data.copy()
+                        # t_player_round_data["round_num"] = round_num
+                        # t_player_round_data["side"] = "t"
+                        # t_player_round_data["match_id"] = match_id
+                        # parsed["player_rounds"].append(t_player_round_data)
+                        del t_player_data  # delete player_data
 
                 if "kills" in round and round["kills"]:
                     for kill in round["kills"]:
@@ -150,6 +155,7 @@ def parse_by_join_file(
                     for frame_id, frame in enumerate(round["frames"]):
                         frame_data = dict(get_top_level(frame))
                         frame_data["round_num"] = round_num
+                        frame_data["match_id"] = match_id
                         parsed["frames"].append(frame_data)
                         del frame_data  # delete frame_data
 
@@ -196,36 +202,46 @@ def parse_by_join_file(
                         ):
                             t_team_frame_data = dict(get_top_level(frame["t"]))
                             t_team_frame_data["round_num"] = round_num
+                            t_team_frame_data["match_id"] = match_id
                             t_team_frame_data["frame_id"] = frame_id
                             parsed["team_frames"].append(t_team_frame_data)
 
                             for player in frame["t"]["players"]:
                                 player_frame_data = dict(get_top_level(player))
-                                if "inventory" in player_frame_data:
-                                    print(type(player_frame_data["inventory"]))
-                                player_data = {
+                                # if "inventory" in player_frame_data:
+                                #     print(type(player_frame_data["inventory"]))
+                                t_player_data = {
                                     "playerName": player["name"],
                                     "steamID": player["steamID"],
                                     "team_name": t_team_frame_data["teamName"],
                                 }
-                                if player_data not in parsed["players"]:
-                                    parsed["players"].append(player_data)
+                                if t_player_data not in parsed["players"]:
+                                    parsed["players"].append(t_player_data)
 
-                                player_id = parsed["players"].index(player_data)
+                                # t_player_round_data = t_player_data.copy()
+                                # t_player_round_data["round_num"] = round_num
+                                # t_player_round_data["side"] = "t"
+                                # t_player_round_data["match_id"] = match_id
+                                # if t_player_round_data not in parsed["player_rounds"]:
+                                #     parsed["player_rounds"].append(t_player_round_data)
+                                #
+                                # del t_player_round_data
+
+                                # player_id = parsed["players"].index(t_player_data)
                                 player_frame_data["match_id"] = match_id
                                 player_frame_data["round_num"] = round_num
                                 player_frame_data["frame_id"] = frame_id
-                                player_frame_data["player_id"] = player_id
+                                # player_frame_data["player_id"] = player_id
                                 parsed["player_frames"].append(player_frame_data)
                                 del player_frame_data  # delete player_frame_data
-                                del player_data  # delete player_data
+                                del t_player_data  # delete player_data
                                 if "inventory" in player and player["inventory"]:
                                     for inventory in player["inventory"]:
                                         inventory_data = dict(get_top_level(inventory))
                                         inventory_data["match_id"] = match_id
                                         inventory_data["round_num"] = round_num
                                         inventory_data["frame_id"] = frame_id
-                                        inventory_data["player_id"] = player_id
+                                        inventory_data["player_id"] = player["steamID"]
                                         parsed["inventory"].append(inventory_data)
                                         del inventory_data
                             del t_team_frame_data
@@ -238,49 +254,60 @@ def parse_by_join_file(
                         ):
                             ct_team_frame_data = dict(get_top_level(frame["ct"]))
                             ct_team_frame_data["round_num"] = round_num
+                            ct_team_frame_data["match_id"] = match_id
                             ct_team_frame_data["frame_id"] = frame_id
                             parsed["team_frames"].append(ct_team_frame_data)
 
                             for player in frame["ct"]["players"]:
                                 player_frame_data = dict(get_top_level(player))
-                                player_data = {
+                                ct_player_data = {
                                     "playerName": player["name"],
                                     "steamID": player["steamID"],
                                     "team_name": ct_team_frame_data["teamName"],
                                 }
-                                if player_data not in parsed["players"]:
-                                    parsed["players"].append(player_data)
+                                if ct_player_data not in parsed["players"]:
+                                    parsed["players"].append(ct_player_data)
 
-                                player_id = parsed["players"].index(player_data)
+                                # ct_player_round_data = ct_player_data.copy()
+                                # ct_player_round_data["round_num"] = round_num
+                                # ct_player_round_data["side"] = "t"
+                                # ct_player_round_data["match_id"] = match_id
+                                # if ct_player_round_data not in parsed["player_rounds"]:
+                                #     parsed["player_rounds"].append(ct_player_round_data)
+
+                                # del ct_player_round_data
+
+                                # player_id = parsed["players"].index(ct_player_data)
                                 player_frame_data["match_id"] = match_id
                                 player_frame_data["round_num"] = round_num
                                 player_frame_data["frame_id"] = frame_id
-                                player_frame_data["player_id"] = player_id
+                                # player_frame_data["player_id"] = player_id
                                 parsed["player_frames"].append(player_frame_data)
                                 del player_frame_data  # delete player_frame_data
-                                del player_data  # delete player_data
+                                del ct_player_data  # delete player_data
                                 if "inventory" in player and player["inventory"]:
                                     for inventory in player["inventory"]:
                                         inventory_data = dict(get_top_level(inventory))
                                         inventory_data["match_id"] = match_id
                                         inventory_data["round_num"] = round_num
                                         inventory_data["frame_id"] = frame_id
-                                        inventory_data["player_id"] = player_id
+                                        inventory_data["player_id"] = player["steamID"]
                                         parsed["inventory"].append(inventory_data)
                                         del inventory_data
                             del ct_team_frame_data
 
         for key, value in parsed.items():
             if value:
-                df = pd.DataFrame(value)
+                df = pd.DataFrame(value).drop_duplicates()
                 df.columns = [camel_to_snake(col) for col in df.columns]
                 downcast_df(df)
                 dest_file_name = f"{destination_path}/{key}.parquet"
                 if not os.path.isfile(dest_file_name):
                     df.to_parquet(dest_file_name)
                 else:
+                    # print(f"found : {dest_file_name}")
                     exist_df = pd.read_parquet(dest_file_name)
-                    joined_df = pd.concat([exist_df, df])
+                    joined_df = pd.concat([exist_df, df]).drop_duplicates()
                     downcast_df(joined_df)
                     joined_df.to_parquet(dest_file_name)
                     del exist_df
