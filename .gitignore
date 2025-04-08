@@ -2,3 +2,4 @@ decompressed/
 *.pyc
 note.md
 test.*
+test/
