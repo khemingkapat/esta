@@ -1,17 +1,11 @@
 #!/bin/bash
 
 declare -a directories=("./data/lan" "./data/online")
-declare -A decompressed_counts
-target_files=50
+target_files_per_dir=25 # Changed to files per directory
 output_dir="./decompressed"
 
 # Create the output directory if it doesn't exist
 mkdir -p "$output_dir"
-
-# Initialize decompressed counts for each directory
-for dir in "${directories[@]}"; do
-  decompressed_counts["$dir"]=0
-done
 
 for dir in "${directories[@]}"; do
   if [[ ! -d "$dir" ]]; then
@@ -19,45 +13,28 @@ for dir in "${directories[@]}"; do
     continue # Move to the next directory
   fi
 
-  # Find all .xz files in the directory and sort them (optional, but can help with consistency)
+  decompressed_count=0 # Reset count for each directory
+  
+  # Find all .xz files in the directory and sort them
   find "$dir" -maxdepth 1 -type f -name "*.xz" -print0 | sort -z | while IFS= read -r -d $'\0' file; do
-    if [[ ${decompressed_counts["$dir"]} -lt $((target_files / ${#directories[@]})) ]]; then
+    if [[ $decompressed_count -lt "$target_files_per_dir" ]]; then
       echo "Processing file: $file"
       filename=$(basename "$file" .xz)
       output_file="$output_dir/$filename"
       xz -dkc "$file" > "$output_file"
       if [[ $? -eq 0 ]]; then
         echo "Decompressed: $file to $output_file"
-        ((decompressed_counts["$dir"]++))
+        ((decompressed_count++))
       else
         echo "Error decompressing: $file"
       fi
+    else
+      echo "Reached the limit of $target_files_per_dir files for directory $dir. Skipping the rest."
+      break # Exit the inner loop
     fi
   done
 done
 
-# Handle any remaining files if target_files is not perfectly divisible by the number of directories
-remaining_files=$((target_files - ${decompressed_counts["./data/lan"]} - ${decompressed_counts["./data/online"]}))
-
-if [[ $remaining_files -gt 0 ]]; then
-  echo "Decompressing remaining $remaining_files files from the first directory..."
-  dir="${directories[0]}"
-  find "$dir" -maxdepth 1 -type f -name "*.xz" -print0 | sort -z | while IFS= read -r -d $'\0' file; do
-    if [[ ${decompressed_counts["$dir"]} -lt "$target_files" ]]; then
-      echo "Processing file: $file"
-      filename=$(basename "$file" .xz)
-      output_file="$output_dir/$filename"
-      xz -dkc "$file" > "$output_file"
-      if [[ $? -eq 0 ]]; then
-        echo "Decompressed: $file to $output_file"
-        ((decompressed_counts["$dir"]++))
-      else
-        echo "Error decompressing: $file"
-      fi
-    fi
-  done
-fi
-
-echo "Finished processing up to $target_files files."
-
+echo "Finished processing files."
 exit 0
+
