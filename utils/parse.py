@@ -231,6 +231,7 @@ def parse_by_join_file(
                                 player_frame_data["match_id"] = match_id
                                 player_frame_data["round_num"] = round_num
                                 player_frame_data["frame_id"] = frame_id
+                                player_frame_data["tick"] = frame["tick"]
                                 # player_frame_data["player_id"] = player_id
                                 parsed["player_frames"].append(player_frame_data)
                                 del player_frame_data  # delete player_frame_data
@@ -242,6 +243,7 @@ def parse_by_join_file(
                                         inventory_data["round_num"] = round_num
                                         inventory_data["frame_id"] = frame_id
                                         inventory_data["player_id"] = player["steamID"]
+                                        inventory_data["tick"] = frame["tick"]
                                         parsed["inventory"].append(inventory_data)
                                         del inventory_data
                             del t_team_frame_data
@@ -281,6 +283,7 @@ def parse_by_join_file(
                                 player_frame_data["match_id"] = match_id
                                 player_frame_data["round_num"] = round_num
                                 player_frame_data["frame_id"] = frame_id
+                                player_frame_data["tick"] = frame["tick"]
                                 # player_frame_data["player_id"] = player_id
                                 parsed["player_frames"].append(player_frame_data)
                                 del player_frame_data  # delete player_frame_data
@@ -292,6 +295,7 @@ def parse_by_join_file(
                                         inventory_data["round_num"] = round_num
                                         inventory_data["frame_id"] = frame_id
                                         inventory_data["player_id"] = player["steamID"]
+                                        inventory_data["tick"] = frame["tick"]
                                         parsed["inventory"].append(inventory_data)
                                         del inventory_data
                             del ct_team_frame_data
