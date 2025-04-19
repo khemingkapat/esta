@@ -152,7 +152,7 @@ def parse_by_join_file(
                         del flash_data  # delete flash_data
 
                 if "frames" in round and round["frames"]:
-                    for frame_id, frame in enumerate(round["frames"]):
+                    for frame in round["frames"]:
                         frame_data = dict(get_top_level(frame))
                         frame_data["round_num"] = round_num
                         frame_data["match_id"] = match_id
@@ -163,7 +163,7 @@ def parse_by_join_file(
                             bomb_location_data = dict(get_top_level(frame["bomb"]))
                             bomb_location_data["match_id"] = match_id
                             bomb_location_data["round_num"] = round_num
-                            bomb_location_data["frame_id"] = frame_id
+                            bomb_location_data["tick"] = frame["tick"]
                             parsed["bomb_location"].append(bomb_location_data)
                             del bomb_location_data  # delete bomb_location_data
 
@@ -172,7 +172,7 @@ def parse_by_join_file(
                                 projectile_data = dict(get_top_level(projectile))
                                 projectile_data["match_id"] = match_id
                                 projectile_data["round_num"] = round_num
-                                projectile_data["frame_id"] = frame_id
+                                projectile_data["tick"] = frame["tick"]
                                 parsed["projectiles"].append(projectile_data)
                                 del projectile_data  # delete projectile_data
 
@@ -181,7 +181,7 @@ def parse_by_join_file(
                                 smoke_data = dict(get_top_level(smoke))
                                 smoke_data["match_id"] = match_id
                                 smoke_data["round_num"] = round_num
-                                smoke_data["frame_id"] = frame_id
+                                smoke_data["tick"] = frame["tick"]
                                 parsed["smokes"].append(smoke_data)
                                 del smoke_data  # delete smoke_data
 
@@ -190,7 +190,7 @@ def parse_by_join_file(
                                 fire_data = dict(get_top_level(fire))
                                 fire_data["match_id"] = match_id
                                 fire_data["round_num"] = round_num
-                                fire_data["frame_id"] = frame_id
+                                fire_data["tick"] = frame["tick"]
                                 parsed["fires"].append(fire_data)
                                 del fire_data  # delete fire_data
 
@@ -203,7 +203,7 @@ def parse_by_join_file(
                             t_team_frame_data = dict(get_top_level(frame["t"]))
                             t_team_frame_data["round_num"] = round_num
                             t_team_frame_data["match_id"] = match_id
-                            t_team_frame_data["frame_id"] = frame_id
+                            t_team_frame_data["tick"] = frame["tick"]
                             parsed["team_frames"].append(t_team_frame_data)
 
                             for player in frame["t"]["players"]:
@@ -230,7 +230,6 @@ def parse_by_join_file(
                                 # player_id = parsed["players"].index(t_player_data)
                                 player_frame_data["match_id"] = match_id
                                 player_frame_data["round_num"] = round_num
-                                player_frame_data["frame_id"] = frame_id
                                 player_frame_data["tick"] = frame["tick"]
                                 # player_frame_data["player_id"] = player_id
                                 parsed["player_frames"].append(player_frame_data)
@@ -241,7 +240,6 @@ def parse_by_join_file(
                                         inventory_data = dict(get_top_level(inventory))
                                         inventory_data["match_id"] = match_id
                                         inventory_data["round_num"] = round_num
-                                        inventory_data["frame_id"] = frame_id
                                         inventory_data["player_id"] = player["steamID"]
                                         inventory_data["tick"] = frame["tick"]
                                         parsed["inventory"].append(inventory_data)
@@ -257,7 +255,7 @@ def parse_by_join_file(
                             ct_team_frame_data = dict(get_top_level(frame["ct"]))
                             ct_team_frame_data["round_num"] = round_num
                             ct_team_frame_data["match_id"] = match_id
-                            ct_team_frame_data["frame_id"] = frame_id
+                            ct_team_frame_data["tick"] = frame["tick"]
                             parsed["team_frames"].append(ct_team_frame_data)
 
                             for player in frame["ct"]["players"]:
@@ -282,7 +280,6 @@ def parse_by_join_file(
                                 # player_id = parsed["players"].index(ct_player_data)
                                 player_frame_data["match_id"] = match_id
                                 player_frame_data["round_num"] = round_num
-                                player_frame_data["frame_id"] = frame_id
                                 player_frame_data["tick"] = frame["tick"]
                                 # player_frame_data["player_id"] = player_id
                                 parsed["player_frames"].append(player_frame_data)
@@ -293,7 +290,6 @@ def parse_by_join_file(
                                         inventory_data = dict(get_top_level(inventory))
                                         inventory_data["match_id"] = match_id
                                         inventory_data["round_num"] = round_num
-                                        inventory_data["frame_id"] = frame_id
                                         inventory_data["player_id"] = player["steamID"]
                                         inventory_data["tick"] = frame["tick"]
                                         parsed["inventory"].append(inventory_data)
